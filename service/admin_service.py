@@ -16,3 +16,12 @@ class AdminService:
             obj.pop('_id', None)
 
         return reservation
+
+    async def view_reservation_by_user(self, passenger_name: str, passenger_email: str):
+        # search for reservation based on the user
+        search_query = {"passenger_name": passenger_name, "passenger_email": passenger_email}
+        reservation = await collection.find(search_query).to_list(length=None)
+        for obj in reservation:
+            obj.pop('_id', None)
+
+        return reservation
