@@ -25,3 +25,16 @@ class AdminService:
             obj.pop('_id', None)
 
         return reservation
+
+    async def update_reservation(self,
+                                 reservation_id: str, ticket_model: TicketModificationModel):
+        existing_reservation = await collection.find_one({"_id": ObjectId(reservation_id)})
+        if existing_reservation is None:
+            raise HTTPException(status_code=404, detail="Reservation not found")
+        else:
+            updated_reservation = await collection.find_one_and_update({"_id": ObjectId(reservation_id)},
+                                                                       {"$set": ticket_model.dict()})
+            updated_reservation.pop('_id', None)
+            return {"message": "Reservation updated successfully", "updated_reservation": updated_reservation}
+
+

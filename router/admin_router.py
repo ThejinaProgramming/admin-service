@@ -9,8 +9,14 @@ admin_router = APIRouter()
 async def get_reservation_by_flight_id(flight_id: str):
     return await AdminService().view_reservation_by_flight(flight_id)
 
+
 @admin_router.get("/reservation/ticket/")
 async def get_reservation_by_passenger(
         passenger_name: str = Query(..., description="passenger name"),
         passenger_email: str = Query(..., description="passenger email address")):
     return await AdminService().view_reservation_by_user(passenger_name, passenger_email)
+
+
+@admin_router.put("/reservation/ticket/{reservation_id}")
+async def update_reservation(reservation_id: str, ticket_model: TicketModificationModel):
+        return await AdminService().update_reservation(reservation_id, ticket_model)
