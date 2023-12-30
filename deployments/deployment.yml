@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminservice
+  namespace: adminservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminservice
+  template:
+    metadata:
+      labels:
+        app: adminservice
+    spec:
+      containers:
+      - name: adminservice
+        image: docker.io/thejina/managereservation:latest
+        ports:  # port mapping
+        - containerPort: 8000 # port number of the container
+        envFrom: # environment variables from ConfigMap
+          - configMapRef:
+                name: adminservice-configmap # name of the ConfigMap object
+
