@@ -73,6 +73,9 @@ async def load_config() -> None:
 
 @app.get("/welcome", dependencies=[Security(azure_scheme)])
 async def welcome():
+    """
+    welcome screen
+    """
     return {"message": "Welcome to Flight Reservation System"}
 
 
