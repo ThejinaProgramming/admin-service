@@ -76,7 +76,7 @@ async def welcome():
     """
     welcome screen
     """
-    return {"message": "Welcome to Flight Reservation System...."}
+    return {"message": "Welcome to Flight Reservation System."}
 
 
 app.include_router(admin_router, prefix="/api/v1", tags=["admin"], dependencies=[Security(azure_scheme)])
